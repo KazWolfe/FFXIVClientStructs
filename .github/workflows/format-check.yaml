@@ -33,9 +33,10 @@ jobs:
           reviewdog_version: latest
         
       - name: Run Format
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |-
-          dotnet format --no-restore --verify-no-changes FFXIVClientStructs.sln 2> lint_errors.txt || true
-          dotnet format --no-restore FFXIVClientStructs.sln
-          cat lint_errors.txt | reviewdog -f=dotnet -reporter=github-pr-review -diff="git diff"
+        run: dotnet format --no-restore FFXIVClientStructs.sln
+        
+      - name: Report Changes
+        uses: reviewdog/action-suggester@v1
+        with:
+          tool_name: dotnet format
+          fail_on_error: true
