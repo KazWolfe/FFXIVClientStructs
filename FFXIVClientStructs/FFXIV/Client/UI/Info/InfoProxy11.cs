@@ -13,7 +13,7 @@ public unsafe partial struct InfoProxy11 {
 
     [FieldOffset(0x30)] private fixed byte InternalListings[MarketBoardListing.Size * 100];
 
-    public Span<MarketBoardListing> Listings => new(Unsafe.AsPointer(ref this.InternalListings[0]), (int) this.ListingCount);
+    public Span<MarketBoardListing> Listings => new(Unsafe.AsPointer(ref this.InternalListings[0]), (int)this.ListingCount);
 
     [FieldOffset(0x4810)] public uint ListingCount;
 
@@ -21,10 +21,13 @@ public unsafe partial struct InfoProxy11 {
     public partial void EndRequest();
 
     [MemberFunction("41 83 F8 14 77 3C")]
-    public partial void ProcessItemHistory(nint a2, nint a3, nint a4);
+    public partial void ProcessItemHistory(nint a2,nint a3, nint a4 );
 
-    [MemberFunction("44 88 4C 24 ?? 44 89 44 24 ?? 48 89 54 24 ?? 53")]
-    public partial nint ProcessItemHistory_Internal(nint a2, uint a3, char a4);
+    [MemberFunction(
+        "44 88 4C 24 ?? 44 89 44 24 ?? 48 89 54 24 ?? 53")
+    ]
+    public partial nint ProcessItemHistory_Internal(nint a2, uint a3,
+        char a4);
 
     [MemberFunction("E8 ?? ?? ?? ?? 8B 5B 04 85 DB")]
     public partial nint ProcessRequestResult(nint a2, nint a3, nint a4, int a5, byte a6, int a7);
@@ -36,11 +39,13 @@ public unsafe struct MarketBoardListing {
 
     // [FieldOffset(0x00)] public Utf8String Unk_0x00;
 
-    [FieldOffset(0x68)] public ulong GlobalItemId;
+    [FieldOffset(0x68)] 
+    public ulong GlobalItemId;
     [FieldOffset(0x70)] public ulong SellingRetainerContentId; // ??
     [FieldOffset(0x78)] public ulong SellingPlayerContentId;
 
-    [FieldOffset(0x88)] public uint UnitPrice;
+    [FieldOffset(0x88)] public uint 
+        UnitPrice;
     [FieldOffset(0x8C)] public uint TotalTax;
     [FieldOffset(0x90)] public uint Quantity;
     [FieldOffset(0x94)] public uint ItemId;
